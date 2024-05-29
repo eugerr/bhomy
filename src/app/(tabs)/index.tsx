@@ -1,31 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { useColorScheme } from 'nativewind';
+import React from 'react';
+import { Switch, Text, View } from 'react-native';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
-
-export default function TabOneScreen() {
+export default function App() {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View className='flex-1 items-center justify-center dark:bg-black'>
+      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+      <Text className='dark:text-white'>Toggle theme</Text>
+      <Switch value={colorScheme === 'dark'} onChange={toggleColorScheme} />
+      <StatusBar style='auto' />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
